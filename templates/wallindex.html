@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Login Page: The Wall</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <div id="maincontainer">
+    <div id="top_border">
+        <ul>
+            <li id="left">CodingDojo</li>
+            <li id="right">Welcome </li>
+            <li id="right"><a href="a">Log Off</a></li>
+        </ul>
+    </div>
+
+    <div id="middle">
+    <div id="member"><br>
+      <br><br>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          {% for message in messages %}
+                  <p>{{ message }}</p>
+          {% endfor %}
+      {% endif %}
+      {% endwith %}
+        <form id="login" action="/login" method="POST" align="center">
+            <h3 class="log">Log In:</h3>
+
+            <label>Email:</label>
+            <input class="form1" type="text" name="email">
+            <br>
+            <label>Password:</label>
+            <input class="form1" type="password" name="password">
+            <br>
+            <input class="button1" type="submit" value="Login">
+        </form>
+
+    </div>
+    			<div id="newuser">
+
+
+    				 <form action="/process_register" method="POST" align="center">
+            <h3>Register:</h3>
+    	      <label>First Name:</label> <input class="form2" type="text" name="first_name"><br>
+    				<label>Last Name:</label> <input class="form2" type="text" name="last_name"><br>
+    				<label>Email Address:</label> <input class="form2" type="text" name="email"><br>
+    				<label>Password:</label> <input class="form2" type="password" name="password"><br>
+    				<label>Confirm Password:</label> <input class="form2" type="password" name="confirm_password"><br>
+    				<input class="button2" type="submit" value="Register">
+
+    	     </form>
+
+    		 </div>
+       </div>
+     </div>
+  </body>
+</html>

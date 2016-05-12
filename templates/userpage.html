@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>The Wall</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div id="top_border2">
+        <ul>
+            <li id="left">CodingDojo</li>
+            <li id="right">Welcome {{session['active_name'] }}!</li>
+            <li id="right"><a href="/logout">Log Off</a></li>
+        </ul>
+    </div>
+
+
+        <div class="post_message">
+            <form class="form3" action="/usermessage/{{session['active_id']}}" method="POST" align="center">
+                <h3>Post a message</h3>
+                <br>
+                <textarea name="messagebox" rows="10" cols="100"></textarea>
+                <br>
+                <input class="button3" type="submit" value="Post Message">
+            </form>
+
+
+        </div>
+        {% for message in messages %}
+          <div class="message_style">
+                    <p>{{ message['first_name']}} {{message['lastname']}} - {{message['created_at']}}</p>
+                    <p>{{ message['message']}}</p>
+                    {% if session['active_id'] == message['users_id'] %}
+                    <a href="/deletemessage/{{ message['id']}}/{{ message['users_id']}}"><button class="button5">Delete</button></a>
+                    {% endif %}
+            </div>
+
+      {% for comment in comments %}
+      {% if message['id'] == comment['messages_id'] %}
+            <div class="comment_style">
+
+                      <p>{{comment['first_name'] }} {{ comment['last_name'] }} - {{ comment['created_at'] }}</p>
+                      <p>{{comment['comments']}}</p>
+            {% endif %}
+            {% if session['active_id'] == comment['users_id'] %}
+                      <a href="/deletecomment/{{comment['id'] }}/{{ comment['users_id'] }}"><button class="button5">Delete</button></a>
+                  {% endif %}
+
+                </div>
+            {% endfor %}
+
+
+            <div id="post_comment">
+
+                  <form class="postcom" action="/usercomment" method="POST" align='center'>
+                  <h4 class="h4com">Post a Comment:</h4>
+                      <input type="hidden" name="messages_id" value="{{ message['id'] }}">
+                      <textarea class="txtarea" name="commentbox" rows="10" cols="100"></textarea><br>
+                      <input type="submit" class="button4" value="Post a Comment">
+                  </form>
+
+            </div>
+        {% endfor %}
+
+
+</body>
+
+</html>
